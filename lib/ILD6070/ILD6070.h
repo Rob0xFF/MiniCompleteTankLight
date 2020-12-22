@@ -25,9 +25,9 @@ class ILD6070
 
   private:
 
-		uint8_t _brightness = 0;
+    uint8_t _brightness = 0;
 
-		const uint8_t _controlPin;
+    const uint8_t _controlPin;
 
 };
 #endif

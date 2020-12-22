@@ -26,7 +26,10 @@ class Board
     /*!
      * @brief update time
      */
-    inline void updateTime()  {now = _myRTC.now();};
+    inline void updateTime()
+    {
+      now = _myRTC.now();
+    };
 
     void update();
 
@@ -37,7 +40,7 @@ class Board
 
   private:
 
-		ILD6070 _myLED = ILD6070(5);
+    ILD6070 _myLED = ILD6070(5);
 
 };
 #endif

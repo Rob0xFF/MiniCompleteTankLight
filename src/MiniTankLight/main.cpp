@@ -30,15 +30,15 @@ int main(void)
 {
   init();
   initVariant();
-	Wire.begin();
+  Wire.begin();
   Serial.begin(115200);
   Timer1.initialize(10000000);
   Timer1.attachInterrupt(tickTock);
   for (;;) {
-  	if (tick) {
-    	board.update();
-    	tick = TOCK;
-  	}
+    if (tick) {
+      board.update();
+      tick = TOCK;
+    }
   }
   return 0;
 }
