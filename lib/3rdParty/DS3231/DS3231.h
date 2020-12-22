@@ -1,185 +1,158 @@
 /*
- * DS3231.h
- *
- * Arduino Library for the DS3231 Real-Time Clock chip
- *
- * (c) Eric Ayars
- * 4/1/11
- * released into the public domain. If you use this, please let me know
- * (just out of pure curiosity!) by sending me an email:
- * eric@ayars.org
- *
- */
+DS3231.h - Header file for the DS3231 Real-Time Clock
 
-// Modified by Andy Wickert 5/15/11: Spliced in stuff from RTClib
+Version: 1.0.1
+(c) 2014 Korneliusz Jarzebski
+www.jarzebski.pl
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the version 3 GNU General Public License as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #ifndef DS3231_h
 #define DS3231_h
 
-// Changed the following to work on 1.0
-//#include "WProgram.h"
-#include <Arduino.h>
+#if ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
 
-#include <Wire.h>
+#define DS3231_ADDRESS              (0x68)
 
-// DateTime (get everything at once) from JeeLabs / Adafruit
-// Simple general-purpose date/time class (no TZ / DST / leap second handling!)
-class DateTime {
-public:
-    DateTime (uint32_t t =0);
-    DateTime (uint16_t year, uint8_t month, uint8_t day,
-                uint8_t hour =0, uint8_t min =0, uint8_t sec =0);
-    DateTime (const char* date, const char* time);
-    uint16_t year() const       { return 2000 + yOff; }
-    uint8_t month() const       { return m; }
-    uint8_t day() const         { return d; }
-    uint8_t hour() const        { return hh; }
-    uint8_t minute() const      { return mm; }
-    uint8_t second() const      { return ss; }
-    uint8_t dayOfTheWeek() const;
+#define DS3231_REG_TIME             (0x00)
+#define DS3231_REG_ALARM_1          (0x07)
+#define DS3231_REG_ALARM_2          (0x0B)
+#define DS3231_REG_CONTROL          (0x0E)
+#define DS3231_REG_STATUS           (0x0F)
+#define DS3231_REG_TEMPERATURE      (0x11)
 
-    // 32-bit times as seconds since 1/1/2000
-    long secondstime() const;
-    // 32-bit times as seconds since 1/1/1970
-    // THE ABOVE COMMENT IS CORRECT FOR LOCAL TIME; TO USE THIS COMMAND TO
-    // OBTAIN TRUE UNIX TIME SINCE EPOCH, YOU MUST CALL THIS COMMAND AFTER
-    // SETTING YOUR CLOCK TO UTC
-    uint32_t unixtime(void) const;
-
-protected:
-    uint8_t yOff, m, d, hh, mm, ss;
+#ifndef RTCDATETIME_STRUCT_H
+#define RTCDATETIME_STRUCT_H
+struct RTCDateTime
+{
+    uint16_t year;
+    uint8_t month;
+    uint8_t day;
+    uint8_t hour;
+    uint8_t minute;
+    uint8_t second;
+    uint8_t dayOfWeek;
+    uint32_t unixtime;
 };
 
-class RTClib {
-  public:
-		// Get date and time snapshot
-    static DateTime now();
+struct RTCAlarmTime
+{
+    uint8_t day;
+    uint8_t hour;
+    uint8_t minute;
+    uint8_t second;
 };
+#endif
 
-// Eric's original code is everything below this line
-class DS3231 {
-	public:
-			
-		//Constructor
-		DS3231();
+typedef enum
+{
+    DS3231_1HZ          = 0x00,
+    DS3231_4096HZ       = 0x01,
+    DS3231_8192HZ       = 0x02,
+    DS3231_32768HZ      = 0x03
+} DS3231_sqw_t;
 
-		// Time-retrieval functions
-    
-		// the get*() functions retrieve current values of the registers.
-		byte getSecond(); 
-		byte getMinute(); 
-		byte getHour(bool& h12, bool& PM); 
-			// In addition to returning the hour register, this function
-			// returns the values of the 12/24-hour flag and the AM/PM flag.
-		byte getDoW(); 
-		byte getDate(); 
-		byte getMonth(bool& Century); 
-			// Also sets the flag indicating century roll-over.
-		byte getYear(); 
-			// Last 2 digits only
+typedef enum
+{
+    DS3231_EVERY_SECOND   = 0b00001111,
+    DS3231_MATCH_S        = 0b00001110,
+    DS3231_MATCH_M_S      = 0b00001100,
+    DS3231_MATCH_H_M_S    = 0b00001000,
+    DS3231_MATCH_DT_H_M_S = 0b00000000,
+    DS3231_MATCH_DY_H_M_S = 0b00010000
+} DS3231_alarm1_t;
 
-		// Time-setting functions
-		// Note that none of these check for sensibility: You can set the
-		// date to July 42nd and strange things will probably result.
-		
-		void setSecond(byte Second); 
-			// In addition to setting the seconds, this clears the 
-			// "Oscillator Stop Flag".
-		void setMinute(byte Minute); 
-			// Sets the minute
-		void setHour(byte Hour); 
-			// Sets the hour
-		void setDoW(byte DoW); 
-			// Sets the Day of the Week (1-7);
-		void setDate(byte Date); 
-			// Sets the Date of the Month
-		void setMonth(byte Month); 
-			// Sets the Month of the year
-		void setYear(byte Year); 
-			// Last two digits of the year
-		void setClockMode(bool h12); 
-			// Set 12/24h mode. True is 12-h, false is 24-hour.
+typedef enum
+{
+    DS3231_EVERY_MINUTE   = 0b00001110,
+    DS3231_MATCH_M        = 0b00001100,
+    DS3231_MATCH_H_M      = 0b00001000,
+    DS3231_MATCH_DT_H_M   = 0b00000000,
+    DS3231_MATCH_DY_H_M   = 0b00010000
+} DS3231_alarm2_t;
 
-		// Temperature function
+class DS3231
+{
+    public:
 
-		float getTemperature(); 
+	bool begin(void);
 
-		// Alarm functions
-		
-		void getA1Time(byte& A1Day, byte& A1Hour, byte& A1Minute, byte& A1Second, byte& AlarmBits, bool& A1Dy, bool& A1h12, bool& A1PM); 
-/* Retrieves everything you could want to know about alarm
- * one. 
- * A1Dy true makes the alarm go on A1Day = Day of Week,
- * A1Dy false makes the alarm go on A1Day = Date of month.
- *
- * byte AlarmBits sets the behavior of the alarms:
- *	Dy	A1M4	A1M3	A1M2	A1M1	Rate
- *	X	1		1		1		1		Once per second
- *	X	1		1		1		0		Alarm when seconds match
- *	X	1		1		0		0		Alarm when min, sec match
- *	X	1		0		0		0		Alarm when hour, min, sec match
- *	0	0		0		0		0		Alarm when date, h, m, s match
- *	1	0		0		0		0		Alarm when DoW, h, m, s match
- *
- *	Dy	A2M4	A2M3	A2M2	Rate
- *	X	1		1		1		Once per minute (at seconds = 00)
- *	X	1		1		0		Alarm when minutes match
- *	X	1		0		0		Alarm when hours and minutes match
- *	0	0		0		0		Alarm when date, hour, min match
- *	1	0		0		0		Alarm when DoW, hour, min match
- */
-		void getA2Time(byte& A2Day, byte& A2Hour, byte& A2Minute, byte& AlarmBits, bool& A2Dy, bool& A2h12, bool& A2PM); 
-			// Same as getA1Time();, but A2 only goes on seconds == 00.
-		void setA1Time(byte A1Day, byte A1Hour, byte A1Minute, byte A1Second, byte AlarmBits, bool A1Dy, bool A1h12, bool A1PM); 
-			// Set the details for Alarm 1
-		void setA2Time(byte A2Day, byte A2Hour, byte A2Minute, byte AlarmBits, bool A2Dy, bool A2h12, bool A2PM); 
-			// Set the details for Alarm 2
-		void turnOnAlarm(byte Alarm); 
-			// Enables alarm 1 or 2 and the external interrupt pin.
-			// If Alarm != 1, it assumes Alarm == 2.
-		void turnOffAlarm(byte Alarm); 
-			// Disables alarm 1 or 2 (default is 2 if Alarm != 1);
-			// and leaves the interrupt pin alone.
-		bool checkAlarmEnabled(byte Alarm); 
-			// Returns T/F to indicate whether the requested alarm is
-			// enabled. Defaults to 2 if Alarm != 1.
-		bool checkIfAlarm(byte Alarm); 
-			// Checks whether the indicated alarm (1 or 2, 2 default);
-			// has been activated.
+	void setDateTime(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);
+	void setDateTime(uint32_t t);
+	void setDateTime(const char* date, const char* time);
+	RTCDateTime getDateTime(void);
+	uint8_t isReady(void);
 
-		// Oscillator functions
+	DS3231_sqw_t getOutput(void);
+	void setOutput(DS3231_sqw_t mode);
+	void enableOutput(bool enabled);
+	bool isOutput(void);
+	void enable32kHz(bool enabled);
+	bool is32kHz(void);
 
-		void enableOscillator(bool TF, bool battery, byte frequency); 
-			// turns oscillator on or off. True is on, false is off.
-			// if battery is true, turns on even for battery-only operation,
-			// otherwise turns off if Vcc is off.
-			// frequency must be 0, 1, 2, or 3.
-			// 0 = 1 Hz
-			// 1 = 1.024 kHz
-			// 2 = 4.096 kHz
-			// 3 = 8.192 kHz (Default if frequency byte is out of range);
-		void enable32kHz(bool TF); 
-			// Turns the 32kHz output pin on (true); or off (false).
-		bool oscillatorCheck();;
-			// Checks the status of the OSF (Oscillator Stop Flag);.
-			// If this returns false, then the clock is probably not
-			// giving you the correct time.
-			// The OSF is cleared by function setSecond();.
+	void forceConversion(void);
+	float readTemperature(void);
 
-	private:
+	void setAlarm1(uint8_t dydw, uint8_t hour, uint8_t minute, uint8_t second, DS3231_alarm1_t mode, bool armed = true);
+	RTCAlarmTime getAlarm1(void);
+	DS3231_alarm1_t getAlarmType1(void);
+	bool isAlarm1(bool clear = true);
+	void armAlarm1(bool armed);
+	bool isArmed1(void);
+	void clearAlarm1(void);
 
-		byte decToBcd(byte val); 
-			// Convert normal decimal numbers to binary coded decimal
-		byte bcdToDec(byte val); 
-			// Convert binary coded decimal to normal decimal numbers
-			
-		byte readControlByte(bool which); 
-			// Read selected control byte: (0); reads 0x0e, (1) reads 0x0f
-		void writeControlByte(byte control, bool which); 
-			// Write the selected control byte. 
-			// which == false -> 0x0e, true->0x0f.
+	void setAlarm2(uint8_t dydw, uint8_t hour, uint8_t minute, DS3231_alarm2_t mode, bool armed = true);
+	RTCAlarmTime getAlarm2(void);
+	DS3231_alarm2_t getAlarmType2(void);
+	bool isAlarm2(bool clear = true);
+	void armAlarm2(bool armed);
+	bool isArmed2(void);
+	void clearAlarm2(void);
 
+	void setBattery(bool timeBattery, bool squareBattery);
 
+	char* dateFormat(const char* dateFormat, RTCDateTime dt);
+	char* dateFormat(const char* dateFormat, RTCAlarmTime dt);
+
+    private:
+	RTCDateTime t;
+
+	char *strDayOfWeek(uint8_t dayOfWeek);
+	char *strMonth(uint8_t month);
+	char *strAmPm(uint8_t hour, bool uppercase);
+	char *strDaySufix(uint8_t day);
+
+	uint8_t hour12(uint8_t hour24);
+	uint8_t bcd2dec(uint8_t bcd);
+	uint8_t dec2bcd(uint8_t dec);
+
+	long time2long(uint16_t days, uint8_t hours, uint8_t minutes, uint8_t seconds);
+	uint16_t date2days(uint16_t year, uint8_t month, uint8_t day);
+	uint8_t daysInMonth(uint16_t year, uint8_t month);
+	uint16_t dayInYear(uint16_t year, uint8_t month, uint8_t day);
+	bool isLeapYear(uint16_t year);
+	uint8_t dow(uint16_t y, uint8_t m, uint8_t d);
+
+	uint32_t unixtime(void);
+	uint8_t conv2d(const char* p);
+
+	void writeRegister8(uint8_t reg, uint8_t value);
+	uint8_t readRegister8(uint8_t reg);
 };
 
 #endif

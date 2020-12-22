@@ -9,8 +9,6 @@
 
 #include "board.h"
 
-Board board = Board();
-
 volatile uint8_t tick = true;
 #define TOCK false;
 void tickTock()
@@ -30,13 +28,14 @@ int main(void)
 {
   init();
   initVariant();
-  Wire.begin();
   Serial.begin(115200);
+	Board * board;
+	board = new Board();
   Timer1.initialize(10000000);
   Timer1.attachInterrupt(tickTock);
   for (;;) {
     if (tick) {
-      board.update();
+      board -> update();
       tick = TOCK;
     }
   }

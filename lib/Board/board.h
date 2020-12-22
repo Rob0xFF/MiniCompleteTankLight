@@ -18,25 +18,28 @@
 class Board
 {
   public:
+
+		DS3231 clock;
+		RTCDateTime dt;
+
     /*!
      * @brief Board class constructor
      */
-    Board() {};
+    Board() 
+		{
+			clock.begin();
+			clock.setDateTime(__DATE__, __TIME__);
+		};
+
+    void update();
 
     /*!
      * @brief update time
      */
     inline void updateTime()
     {
-      now = _myRTC.now();
+      dt = clock.getDateTime();
     };
-
-    void update();
-
-    DateTime now;
-    // create instances for the clock
-    DS3231 _myClock;
-    RTClib _myRTC; // now
 
   private:
 

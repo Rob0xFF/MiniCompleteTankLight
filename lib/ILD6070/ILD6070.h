@@ -6,7 +6,6 @@
 #include <util/delay.h>
 #include <avr/io.h>
 #include "Arduino.h"
-#include "Wire.h"
 
 /*!
  * @brief Board main class, manages the mainboard of the OLED testing device
