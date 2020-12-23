@@ -29,9 +29,7 @@ https://github.com/ladislas/Bare-Arduino-Project
 
 https://github.com/sudar/Arduino-Makefile
 
-Individual Makefile is located besides the main.cpp file.
-
-Additionally, we will need to manually add placement new to the core files, because for some reason this is not included in the original distribution.
+Individual Makefile is located besides the main.cpp file. This might be edited to fit your environment.
 
 # PCB
 
@@ -41,7 +39,7 @@ The PCB might be manufactured by means of the photo-positive-method, this is the
 
 While soldering, the CHR bridge must be left open, if a non rechargable CR2032 battery is used. It should be closed to allow charging if the LIR2032 accumulator is used. Charging is then controlled via U5.
 
-The Atmega microcontroller should be preloaded with the Arduino bootloader before soldering. Nevertheless, ISP is possible via a pogo pin ISP adaptor.
+The Atmega microcontroller should be preloaded with the Arduino bootloader before soldering. Nevertheless, in system programming is possible via a pogo pin ISP adaptor and a programmer.
 
 ## BOM
 
