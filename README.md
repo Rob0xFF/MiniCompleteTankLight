@@ -1,6 +1,6 @@
 # MiniTankLight
 
-This is a replacement PCB for the [Mini Complete Tank](https://minicompletetank.com) aquarium light. It fits right into the original housing, the original LED PCB is maintained.
+This is a replacement PCB for the [Mini Complete Tank](https://minicompletetank.com) aquarium light. It fits right into the original housing, the original LED PCB is maintained. Please do not put fish in this tiny tank!
 
 ![PCB](https://github.com/Rob0xFF/MiniTankLight/raw/main/pcb.jpg)
 
