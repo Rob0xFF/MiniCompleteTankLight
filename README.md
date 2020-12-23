@@ -2,6 +2,8 @@
 
 This is a replacement PCB for the [Mini Complete Tank](https://minicompletetank.com) aquarium light. It fits right into the original housing, the original LED PCB is maintained.
 
+![PCB]()
+
 ## Features
 
 * schedule any lighting profile with smooth sunrise and sunset, this is hardcoded at compile time
