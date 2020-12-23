@@ -29,11 +29,19 @@ https://github.com/ladislas/Bare-Arduino-Project
 
 https://github.com/sudar/Arduino-Makefile
 
-Individual Makefiles are located besides the main.cpp files. In order to use all pins of the Atmega2560, not only those broken out on Arduino Boards, we rely on the Core files provided by MCUDude:
-
-https://github.com/MCUdude/MegaCore
+Individual Makefile is located besides the main.cpp file.
 
 Additionally, we will need to manually add placement new to the core files, because for some reason this is not included in the original distribution.
+
+# PCB
+
+## Manufacturing
+
+The PCB might be manufactured by means of the photo-positive-method, this is the way I do it. Alternativly, there are several commercial PCB services out there.
+
+While soldering, the CHR bridge must be left open, if a non rechargable CR2032 battery is used. It should be closed to allow charging if the LIR2032 accumulator is used. Charging is then controlled via U5.
+
+The Atmega microcontroller should be preloaded with the Arduino bootloader before soldering. Nevertheless, ISP is possible via a pogo pin ISP adaptor.
 
 ## BOM
 
