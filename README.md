@@ -2,7 +2,7 @@
 
 This is a replacement PCB for the [Mini Complete Tank](https://minicompletetank.com) aquarium light. It fits right into the original housing, the original LED PCB is maintained.
 
-![PCB]()
+![PCB](https://github.com/Rob0xFF/MiniTankLight/raw/main/pcb.jpg)
 
 ## Features
 
