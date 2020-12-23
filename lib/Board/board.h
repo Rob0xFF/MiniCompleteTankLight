@@ -10,7 +10,7 @@
 
 #include "timetable.h"
 #include <DS3231.h>
-#include <ILD6070.h>
+#include <pwmDevice.h>
 
 /*!
  * @brief Board main class, manages the mainboard of the OLED testing device
@@ -19,17 +19,22 @@ class Board
 {
   public:
 
-		DS3231 clock;
-		RTCDateTime dt;
+    DS3231 clock;
+    RTCDateTime dt;
 
     /*!
      * @brief Board class constructor
      */
-    Board() 
-		{
-			clock.begin();
-			clock.setDateTime(__DATE__, __TIME__);
-		};
+    Board()
+    {
+      _light.off();
+      _usbOutput.off();
+      _statusLED.on();
+      clock.begin();
+      clock.setDateTime(__DATE__, __TIME__);
+    };
+
+    void updatePush(void);
 
     void update();
 
@@ -43,7 +48,13 @@ class Board
 
   private:
 
-    ILD6070 _myLED = ILD6070(5);
+    PWMDevice _light = PWMDevice(5);
+
+    PWMDevice _usbOutput = PWMDevice(2);
+
+    PWMDevice _statusLED = PWMDevice(4);
+
+    uint8_t _status = 0;
 
 };
 #endif

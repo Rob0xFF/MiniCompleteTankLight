@@ -6,19 +6,23 @@ ARDUINO_DIR       = /Applications/Arduino.app/Contents/Java
 
 USER_LIB_PATH    :=  $(PROJECT_DIR)/lib
 
-BOARD_TAG   = nano
+#BOARD_TAG   = nano
+
+BOARD_TAG   = uno
 
 BOARD_SUB   = atmega328
 
 #ARDUINO_LIB_PATH = $(HOME)/Documents/Arduino/libraries
 
-ARDUINO_LIBS = 3rdParty/TimerOne 3rdparty/DS3231 ILD6070 Wire Board
+ARDUINO_LIBS = 3rdParty/TimerOne 3rdparty/DS3231 PWMDevice Wire Board
 
 OPTIMIZATION_LEVEL = s
 
-MONITOR_PORT      = /dev/cu.usbserial*
+#MONITOR_PORT      = /dev/cu.usbserial*
 
 #MONITOR_PORT      = /dev/cu.wchusbserial1430
+
+MONITOR_PORT      = /dev/cu.usbmodem*
 
 MONITOR_BAUDRATE  = 115200
 

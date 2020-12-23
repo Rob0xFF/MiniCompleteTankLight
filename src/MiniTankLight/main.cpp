@@ -9,6 +9,31 @@
 
 #include "board.h"
 
+Board * board;
+
+const uint8_t maxPushDuration = 250;
+volatile uint32_t pushDuration = 0;
+volatile uint32_t pushStart = 0;
+volatile uint16_t counter = 0;
+volatile uint8_t pushed = false;
+
+
+#define IS_RELEASED false;
+void btPushed()
+{
+  if (counter == 0) {
+    pushStart = millis();
+    pushed = true;
+  } else {
+    pushDuration = millis() - pushStart;
+    if (pushDuration > maxPushDuration) {
+      counter = 0;
+      return;
+    }
+  }
+  counter ++;
+}
+
 volatile uint8_t tick = true;
 #define TOCK false;
 void tickTock()
@@ -29,14 +54,19 @@ int main(void)
   init();
   initVariant();
   Serial.begin(115200);
-	Board * board;
-	board = new Board();
+  board = new Board();
+  pinMode(3, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(3), btPushed, FALLING);
   Timer1.initialize(10000000);
   Timer1.attachInterrupt(tickTock);
   for (;;) {
     if (tick) {
       board -> update();
       tick = TOCK;
+    }
+    if (pushed) {
+      board -> updatePush();
+      pushed = IS_RELEASED;
     }
   }
   return 0;
