@@ -10,6 +10,7 @@
 
 #include "timetable.h"
 #include <DS3231.h>
+#include <Timezone.h>
 #include <pwmDevice.h>
 
 /*!
@@ -31,7 +32,8 @@ class Board
       _usbOutput.off();
       _statusLED.on();
       clock.begin();
-      clock.setDateTime(__DATE__, __TIME__);
+			// uncomment for first time use
+      // clock.setDateTime(__DATE__, __TIME__);
     };
 
     void updatePush(void);

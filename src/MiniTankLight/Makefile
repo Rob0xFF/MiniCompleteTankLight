@@ -14,7 +14,7 @@ BOARD_SUB   = atmega328
 
 #ARDUINO_LIB_PATH = $(HOME)/Documents/Arduino/libraries
 
-ARDUINO_LIBS = 3rdParty/TimerOne 3rdparty/DS3231 PWMDevice Wire Board
+ARDUINO_LIBS = 3rdParty/TimerOne 3rdparty/DS3231 3rdParty/Time 3rdParty/Timezone PWMDevice Wire Board
 
 OPTIMIZATION_LEVEL = s
 

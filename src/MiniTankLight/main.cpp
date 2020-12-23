@@ -11,7 +11,7 @@
 
 Board * board;
 
-const uint8_t maxPushDuration = 250;
+const uint8_t maxPushDuration = 500;
 volatile uint32_t pushDuration = 0;
 volatile uint32_t pushStart = 0;
 volatile uint16_t counter = 0;
