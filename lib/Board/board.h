@@ -21,8 +21,8 @@ class Board
       _usbOutput.off();
       _statusLED.on();
       clock.begin();
-      // uncomment for first time use
-      clock.setDateTime(__DATE__, __TIME__);
+      // uncomment to automatically set clock, you need to comment, recompile and flash again after the clock is set and running, otherwise the clock will be set to this date everytime the device is started
+      // clock.setDateTime(__DATE__, __TIME__);
     };
 
     void updatePush(void);
