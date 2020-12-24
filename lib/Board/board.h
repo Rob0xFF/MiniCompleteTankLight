@@ -33,7 +33,7 @@ class Board
       _statusLED.on();
       clock.begin();
 			// uncomment for first time use
-      // clock.setDateTime(__DATE__, __TIME__);
+      clock.setDateTime(__DATE__, __TIME__);
     };
 
     void updatePush(void);

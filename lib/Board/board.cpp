@@ -1,16 +1,17 @@
 #include <board.h>
 
-#define DEBUG
+// #define DEBUG
 
 void Board::updatePush(void)
 {
   if (_status == 0) {
     _status = 1;
-    update();
-  } else {
-    _status = 0;
-    update();
-  }
+  } else if (_status == 1) {
+    _status = 2;
+  } else if (_status == 2) {
+		_status = 0;
+	}
+	update();
 }
 
 void Board::update(void)
@@ -18,7 +19,7 @@ void Board::update(void)
   if (_status == 0) {
     _light.off();
     _usbOutput.off();
-  } else {
+  } else if (_status == 1) {
     uint8_t length = sizeof(timeTable) / sizeof(timeTable[0]);
     updateTime();
     int16_t elapsedMinutes = 60 * dt.hour + dt.minute;
@@ -79,5 +80,8 @@ void Board::update(void)
     Serial.print("  newBrightness: ");
     Serial.println(newBrightness);
 #endif
-  }
+  } else if (_status == 2) {
+		_light.on();
+		_usbOutput.off();
+	}
 }
