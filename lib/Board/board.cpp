@@ -1,7 +1,5 @@
 #include <board.h>
 
-// #define DEBUG
-
 void Board::updatePush(void)
 {
   if (_status == 0) {
@@ -9,9 +7,9 @@ void Board::updatePush(void)
   } else if (_status == 1) {
     _status = 2;
   } else if (_status == 2) {
-		_status = 0;
-	}
-	update();
+    _status = 0;
+  }
+  update();
 }
 
 void Board::update(void)
@@ -59,29 +57,9 @@ void Board::update(void)
     }
     uint8_t newBrightness = (uint8_t) ( lastPoint + (nextPoint - lastPoint) * segmentProgress);
     _light.setPercent(newBrightness);
-		_usbOutput.on();
-#ifdef DEBUG
-    Serial.print("Hour: ");
-    Serial.print(dt.hour);
-    Serial.print(" Minute: ");
-    Serial.print(dt.minute);
-    Serial.print(" elapsedMinutes: ");
-    Serial.print(elapsedMinutes);
-    Serial.print("  lastTime: ");
-    Serial.print(lastTime);
-    Serial.print("  lastPoint: ");
-    Serial.print(lastPoint);
-    Serial.print("  nextTime: ");
-    Serial.print(nextTime);
-    Serial.print("  nextPoint: ");
-    Serial.print(nextPoint);
-    Serial.print("  segmentProgress: ");
-    Serial.print(segmentProgress);
-    Serial.print("  newBrightness: ");
-    Serial.println(newBrightness);
-#endif
+    _usbOutput.on();
   } else if (_status == 2) {
-		_light.on();
-		_usbOutput.off();
-	}
+    _light.on();
+    _usbOutput.off();
+  }
 }

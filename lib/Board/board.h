@@ -12,9 +12,6 @@
 #include <DS3231.h>
 #include <pwmDevice.h>
 
-/*!
- * @brief Board main class, manages the mainboard of the OLED testing device
- */
 class Board
 {
   public:
@@ -22,16 +19,13 @@ class Board
     DS3231 clock;
     RTCDateTime dt;
 
-    /*!
-     * @brief Board class constructor
-     */
     Board()
     {
       _light.off();
       _usbOutput.off();
       _statusLED.on();
       clock.begin();
-			// uncomment for first time use
+      // uncomment for first time use
       clock.setDateTime(__DATE__, __TIME__);
     };
 
@@ -39,15 +33,12 @@ class Board
 
     void update();
 
-    /*!
-     * @brief update time
-     */
+  private:
+
     inline void updateTime()
     {
       dt = clock.getDateTime();
     };
-
-  private:
 
     PWMDevice _light = PWMDevice(5);
 
