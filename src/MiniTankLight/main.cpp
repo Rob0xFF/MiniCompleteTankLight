@@ -11,28 +11,10 @@
 
 Board * board;
 
-const uint32_t maxPushDuration = 25000;
-volatile uint32_t pushDuration = 0;
-volatile uint32_t pushStart = 0;
-volatile uint32_t counter = 0;
 volatile uint8_t pushed = false;
-
-
 #define IS_RELEASED false;
 void btPushed()
 {
-//   if (counter == 0) {
-//     pushStart = micros();
-//     pushed = true;
-//   } else {
-//     pushDuration = micros() - pushStart;
-//     if (pushDuration > maxPushDuration) {
-//       pushed = true;
-//       counter = 0;
-//       return;
-//     }
-//   }
-//   counter ++;
 	pushed = true;
 }
 
