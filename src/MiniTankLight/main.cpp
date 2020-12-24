@@ -1,9 +1,4 @@
 #include <Arduino.h>
-#include <new.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <util/delay.h>
-#include <avr/io.h>
 #include <Wire.h>
 #include <TimerOne.h>
 

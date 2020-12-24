@@ -1,10 +1,6 @@
 #ifndef PWMDEVICE_h
 #define PWMDEVICE_h
 
-#include <stdint.h>
-#include <new.h>
-#include <util/delay.h>
-#include <avr/io.h>
 #include "Arduino.h"
 
 /*!
