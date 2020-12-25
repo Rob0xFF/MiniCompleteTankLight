@@ -16,10 +16,13 @@ void Board::update(void)
 {
   if (_status == 0) {
     _light.off();
-    _usbOutput.off();
+    _pump.off();
+		_heater.off();
   } else if (_status == 1) {
-    uint8_t length = sizeof(timeTable) / sizeof(timeTable[0]);
     updateTime();
+    updateTemperature();
+		Serial.println(temperature);
+    uint8_t length = sizeof(timeTable) / sizeof(timeTable[0]);
     int16_t elapsedMinutes = 60 * dt.hour + dt.minute;
     int16_t lastTime = -1;
     int16_t lastPoint = 0;
@@ -57,9 +60,16 @@ void Board::update(void)
     }
     uint8_t newBrightness = (uint8_t) ( lastPoint + (nextPoint - lastPoint) * segmentProgress);
     _light.setPercent(newBrightness);
-    _usbOutput.on();
+    _pump.on();
+		if(temperature > tempSetpoint + 0.5F) {
+			_heater.off();
+		} 
+		else if(temperature < tempSetpoint - 0.5F) {
+			_heater.on();
+		}
   } else if (_status == 2) {
     _light.on();
-    _usbOutput.off();
+    _pump.off();
+		_heater.off();
   }
 }

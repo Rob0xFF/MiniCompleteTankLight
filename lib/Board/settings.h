@@ -11,3 +11,10 @@ const static uint8_t timeTable[][3] = {
   {19, 00, 0}
 
 };
+
+/*!
+* @brief Temperature setPoint
+* @syntax temperature[x.xF]
+*/
+
+const static float tempSetpoint = 24.0F;
