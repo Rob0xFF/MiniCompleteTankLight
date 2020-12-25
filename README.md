@@ -11,7 +11,7 @@ This is a replacement PCB for the [Mini Complete Tank](https://minicompletetank.
 * temperature setpoint, hardcoded at compile time
 * toggle between 3 states using the built-in push button:
   1. idle -> light off, external heater/pump off
-  2. profile run -> light profile on, external heater/pump on
+  2. profile run -> light profile on, external heater/pump on (device boots to this state)
   3. maintenance -> full light on, external heater/pump off
 * CR2032 battery / LIR2032 accumulator buffered real time clock
 * Arduino compatible flashing using USB
