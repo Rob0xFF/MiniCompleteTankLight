@@ -4,22 +4,23 @@ This is a replacement PCB for the [Mini Complete Tank](https://minicompletetank.
 
 ![Foto](https://raw.githubusercontent.com/Rob0xFF/MiniTankLight/main/5400F30C-6FEE-497C-8EF1-8330CC151183.jpeg?token=AGGZRCXBJ7CXHUGPIYD3CDS74SI64)
 
-![PCB](https://github.com/Rob0xFF/MiniTankLight/raw/main/pcb.jpg)
-
 ## Features
 
 * schedule any lighting profile with smooth sunrise and sunset, this is hardcoded at compile time
+* support for external 5W usb heater and Sparkfun DS18B20 water-proof temperature sensor
+* temperature setpoint is hardcoded at compile time
 * toggle between 3 states using the built-in push button:
-  1. idle -> light off, external USB/pump off
-  2. profile run -> light profile on, external USB/pump on
-  3. maintenance -> full light on, external USB/pump off
+  1. idle -> light off, external heater/pump off
+  2. profile run -> light profile on, external heater/pump on
+  3. maintenance -> full light on, external heater/pump off
 * CR2032 battery / LIR2032 accumulator buffered real time clock
 * Arduino compatible flashing using USB
 
 ## Configuration
 
-* edid lib/Board/timetable.h in order to fit your needs
-* each node must be defined seperatly
+* edid lib/Board/settings.h in order to fit your needs
+* each node of the lighting profile must be defined seperatly
+* define the temperature setpoint
 
 ## Build
 
