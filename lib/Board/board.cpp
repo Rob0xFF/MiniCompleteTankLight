@@ -21,7 +21,6 @@ void Board::update(void)
   } else if (_status == 1) {
     updateTime();
     updateTemperature();
-		Serial.println(temperature);
     uint8_t length = sizeof(timeTable) / sizeof(timeTable[0]);
     int16_t elapsedMinutes = 60 * dt.hour + dt.minute;
     int16_t lastTime = -1;
