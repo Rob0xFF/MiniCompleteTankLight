@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <avr/wdt.h>
 #include <Wire.h>
 #include <TimerOne.h>
 
@@ -36,11 +37,14 @@ int main(void)
   board = new Board();
   pinMode(3, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(3), btPushed, FALLING);
-  Timer1.initialize(10000000);
+  Timer1.initialize(5000000);
   Timer1.attachInterrupt(tickTock);
+	wdt_enable(WDTO_8S);
+	wdt_reset();
   for (;;) {
     if (tick) {
       board -> update();
+			wdt_reset();
       tick = TOCK;
     }
     if (pushed) {
