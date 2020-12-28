@@ -7,7 +7,7 @@ This is a replacement PCB for the [Mini Complete Tank](https://minicompletetank.
 ## Features
 
 * schedule any lighting profile with smooth sunrise and sunset, hardcoded at compile time
-* support for chinese external 5W usb heater (use only 5V DC / 5W heater) and Sparkfun DS18B20 water-proof temperature sensor
+* support for chinese external [5W usb heater](https://www.aliexpress.com/item/4000235456707.html) (use only 5V DC / 5W heater) and Sparkfun DS18B20 water-proof temperature sensor
 * temperature setpoint, hardcoded at compile time
 * toggle between 3 states using the built-in push button:
   1. idle -> light off, external heater/pump off
