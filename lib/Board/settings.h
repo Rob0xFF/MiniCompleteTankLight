@@ -17,4 +17,4 @@ const static uint8_t timeTable[][3] = {
 * @syntax temperature[-55.0 .. 125.0] in Celsius
 */
 
-const static float tempSetpoint = 24.0F;
+const static float tempSetpoint = 28.0F;

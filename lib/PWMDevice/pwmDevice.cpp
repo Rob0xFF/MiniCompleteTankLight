@@ -10,6 +10,7 @@ void PWMDevice::setPercent(uint8_t setPoint)
 {
   _pwm = map(setPoint, 0, 100, 0, 255);
   analogWrite(_controlPin, _pwm);
+	Serial.print(_controlPin);Serial.print("->");Serial.println(_pwm);
 }
 
 uint8_t PWMDevice::getPercent(void)
@@ -21,6 +22,7 @@ void PWMDevice::setPWM(uint8_t setPoint)
 {
   _pwm = setPoint;
   analogWrite(_controlPin, _pwm);
+	Serial.print(_controlPin);Serial.print("->");Serial.println(_pwm);
 }
 
 uint8_t PWMDevice::getPWM(void)
@@ -32,10 +34,12 @@ void PWMDevice::on(void)
 {
   _pwm = 255;
   digitalWrite(_controlPin, HIGH);
+	Serial.print(_controlPin);Serial.print("->");Serial.println(_pwm);
 }
 
 void PWMDevice::off(void)
 {
   _pwm = 0;
   digitalWrite(_controlPin, LOW);
+	Serial.print(_controlPin);Serial.print("->");Serial.println(_pwm);
 }

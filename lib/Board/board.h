@@ -19,11 +19,11 @@ class Board
       _light.off();
       _pump.off();
       _heater.off();
-      _statusLED.on();
+      _powerLED.on();
       _clock.begin();
       _tempSensor.begin();
       // uncomment to automatically set clock, you need to comment, recompile and flash again after the clock is set and running, otherwise the clock will be set to this date everytime the device is started
-      // clock.setDateTime(__DATE__, __TIME__);
+      //_clock.setDateTime(__DATE__, __TIME__);
     };
 
     void updatePush(void);
@@ -53,9 +53,11 @@ class Board
 
     PWMDevice _pump = PWMDevice(2);
 
-    PWMDevice _heater = PWMDevice(6);
+    PWMDevice _heater = PWMDevice(9);
 
-    PWMDevice _statusLED = PWMDevice(4);
+    PWMDevice _powerLED = PWMDevice(6);
+
+    PWMDevice _heaterLED = PWMDevice(4);
 
     float _temperature = DEVICE_DISCONNECTED_C;
 

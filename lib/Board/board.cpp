@@ -13,6 +13,7 @@ void Board::update(void)
       _light.off();
       _pump.off();
       _heater.off();
+			_heaterLED.off();
       break;
     case 1:
       updateTime();
@@ -57,14 +58,17 @@ void Board::update(void)
       _pump.on();
       if (_temperature > tempSetpoint + 0.5F && _temperature != DEVICE_DISCONNECTED_C) {
         _heater.off();
+				_heaterLED.off();
       } else if (_temperature < tempSetpoint - 0.5F || _temperature == DEVICE_DISCONNECTED_C) {
         _heater.on();
+				_heaterLED.on();
       }
       break;
     case 2:
       _light.on();
       _pump.off();
       _heater.off();
+			_heaterLED.off();
       break;
   }
 }
