@@ -18,11 +18,11 @@ ARDUINO_LIBS = 3rdParty/TimerOne 3rdparty/DS3231 3rdParty/OneWire 3rdParty/DS18B
 
 OPTIMIZATION_LEVEL = s
 
-#MONITOR_PORT      = /dev/cu.usbserial*
+MONITOR_PORT      = /dev/cu.usbserial*
 
 #MONITOR_PORT      = /dev/cu.wchusbserial1430
 
-MONITOR_PORT      = /dev/cu.usbmodem*
+#MONITOR_PORT      = /dev/cu.usbmodem*
 
 MONITOR_BAUDRATE  = 115200
 

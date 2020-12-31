@@ -56,10 +56,10 @@ void Board::update(void)
       newBrightness = (uint8_t) ( lastPoint + (nextPoint - lastPoint) * segmentProgress);
       _light.setPercent(newBrightness);
       _pump.on();
-      if (_temperature > tempSetpoint + 0.5F && _temperature != DEVICE_DISCONNECTED_C) {
+      if (_temperature > tempSetpoint + 0.5F || _temperature == DEVICE_DISCONNECTED_C) {
         _heater.off();
 				_heaterLED.off();
-      } else if (_temperature < tempSetpoint - 0.5F || _temperature == DEVICE_DISCONNECTED_C) {
+      } else if (_temperature < tempSetpoint - 0.5F && _temperature != DEVICE_DISCONNECTED_C) {
         _heater.on();
 				_heaterLED.on();
       }
