@@ -2,7 +2,7 @@
 
 This is a replacement PCB for the [Mini Complete Tank](https://minicompletetank.com) aquarium light. It fits right into the original housing, the original LED PCB is maintained. Please do not put fish in this tiny tank!
 
-![Foto](https://raw.githubusercontent.com/Rob0xFF/MiniTankLight/main/5400F30C-6FEE-497C-8EF1-8330CC151183.jpeg?token=AGGZRCXBJ7CXHUGPIYD3CDS74SI64)
+![Foto](https://raw.githubusercontent.com/Rob0xFF/MiniCompleteTankLight/main/8CD3B21E-1F02-4E82-A492-68049F267D64.jpeg)
 
 ## Features
 
@@ -15,6 +15,10 @@ This is a replacement PCB for the [Mini Complete Tank](https://minicompletetank.
   3. maintenance -> full light on, external heater/pump off
 * CR2032 battery / LIR2032 accumulator buffered real time clock
 * Arduino compatible flashing using USB
+
+![Foto](https://raw.githubusercontent.com/Rob0xFF/MiniCompleteTankLight/main/E9C7478B-C4FB-4D23-8C77-322F2430C655.jpeg)
+
+![Foto](https://raw.githubusercontent.com/Rob0xFF/MiniCompleteTankLight/main/AF1AA545-A5A9-44DA-A909-1E21AC894F08.jpeg)
 
 ## Configuration
 
