@@ -9,6 +9,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <pwmDevice.h>
+#include <digitalDevice.h>
 
 class Board
 {
@@ -16,7 +17,7 @@ class Board
 
     Board()
     {
-      _light.off();
+			_light.off();
       _pump.off();
       _heater.off();
       _powerLED.on();
@@ -51,13 +52,13 @@ class Board
 
     PWMDevice _light = PWMDevice(5);
 
-    PWMDevice _pump = PWMDevice(2);
+    DigitalDevice _pump = DigitalDevice(2);
 
-    PWMDevice _heater = PWMDevice(9);
+    DigitalDevice _heater = DigitalDevice(9);
 
-    PWMDevice _powerLED = PWMDevice(6);
+    DigitalDevice _powerLED = DigitalDevice(6);
 
-    PWMDevice _heaterLED = PWMDevice(4);
+    DigitalDevice _heaterLED = DigitalDevice(4);
 
     float _temperature = DEVICE_DISCONNECTED_C;
 
