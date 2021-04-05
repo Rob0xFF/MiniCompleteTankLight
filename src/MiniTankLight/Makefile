@@ -14,13 +14,15 @@ BOARD_SUB   = atmega328
 
 #ARDUINO_LIB_PATH = $(HOME)/Documents/Arduino/libraries
 
-ARDUINO_LIBS = 3rdParty/TimerOne 3rdparty/DS3231 3rdParty/OneWire 3rdParty/DS18B20 DigitalDevice PWMDevice Wire Board
+ARDUINO_LIBS = 3rdparty/DS3231 3rdParty/OneWire 3rdParty/DS18B20 3rdParty/TimerOne DigitalDevice PWMDevice Wire Board
 
 OPTIMIZATION_LEVEL = s
 
-#MONITOR_PORT      = /dev/cu.usbserial*
+ISP_PROG := usbtiny
 
-MONITOR_PORT      = /dev/cu.wchusbserial*
+MONITOR_PORT      = /dev/cu.usbserial*
+
+#MONITOR_PORT      = /dev/cu.wchusbserial*
 
 #MONITOR_PORT      = /dev/cu.usbmodem*
 

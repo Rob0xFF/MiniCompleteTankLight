@@ -5,16 +5,17 @@
 
 const static uint8_t timeTable[][3] = {
 
-  {11, 00, 0},
-  {12, 00, 75},
-  {18, 30, 75},
-  {19, 30, 0}
+  {9, 0, 0},
+  {11, 0, 100},
+  {18, 0, 100},	
+  {20, 0, 0}
 
 };
 
 /*!
 * @brief Temperature setPoint
-* @syntax temperature[-55.0 .. 125.0] in Celsius
+* @syntax temperature[-55.0F .. 125.0F] in Celsius
 */
-
-const static float tempSetpoint = 23.0F;
+#ifdef WITH_TEMP
+	const static float tempSetpoint = 23.5F;
+#endif

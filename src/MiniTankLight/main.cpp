@@ -33,7 +33,6 @@ int main(void)
 {
   init();
   initVariant();
-  Serial.begin(115200);
   board = new Board();
   pinMode(3, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(3), btPushed, FALLING);
@@ -42,11 +41,11 @@ int main(void)
 	wdt_enable(WDTO_8S);
 	wdt_reset();
   for (;;) {
-    if (tick) {
+   	if (tick) {
       board -> update();
 			wdt_reset();
       tick = TOCK;
-    }
+   	}
     if (pushed) {
       board -> updatePush();
       pushed = IS_RELEASED;
