@@ -9,8 +9,8 @@
 #include "settings.h"
 #include <DS3231.h>
 #ifdef WITH_TEMP
-	#include <OneWire.h>
-	#include <DallasTemperature.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
 #endif
 #include <pwmDevice.h>
 #include <digitalDevice.h>
@@ -21,14 +21,14 @@ class Board
 
     Board()
     {
-			_light.off();
+      _light.off();
       _pump.off();
       _valve.off();
       _powerLED.on();
       _clock.begin();
-			#ifdef WITH_TEMP
-	      _tempSensor.begin();
-			#endif
+#ifdef WITH_TEMP
+      _tempSensor.begin();
+#endif
       // uncomment to automatically set clock, you need to comment, recompile and flash again after the clock is set and running, otherwise the clock will be set to this date everytime the device is started
       //_clock.setDateTime(__DATE__, __TIME__);
     };
@@ -39,16 +39,16 @@ class Board
 
   private:
 
-		#ifdef WITH_TEMP
-    	OneWire _oneWire = OneWire(17);
-    	DallasTemperature _tempSensor = DallasTemperature(&_oneWire);
+#ifdef WITH_TEMP
+    OneWire _oneWire = OneWire(17);
+    DallasTemperature _tempSensor = DallasTemperature(&_oneWire);
 
-    	inline void updateTemperature()
-    	{
-    	  _tempSensor.requestTemperatures();
-     	 _temperature = _tempSensor.getTempCByIndex(0);
-    	};
-		#endif
+    inline void updateTemperature()
+    {
+      _tempSensor.requestTemperatures();
+      _temperature = _tempSensor.getTempCByIndex(0);
+    };
+#endif
 
     DS3231 _clock;
     RTCDateTime _dt;
@@ -70,11 +70,11 @@ class Board
 
     DigitalDevice _statusLED = DigitalDevice(8);
 
-		#ifdef WITH_TEMP
-    	float _temperature = DEVICE_DISCONNECTED_C;
+#ifdef WITH_TEMP
+    float _temperature = DEVICE_DISCONNECTED_C;
 
-    	DigitalDevice _heater = DigitalDevice(6);
-		#endif
+    DigitalDevice _heater = DigitalDevice(6);
+#endif
 
     uint8_t _status = 1;
 

@@ -11,7 +11,7 @@ volatile uint8_t pushed = false;
 #define IS_RELEASED false;
 void btPushed()
 {
-	pushed = true;
+  pushed = true;
 }
 
 volatile uint8_t tick = true;
@@ -38,14 +38,14 @@ int main(void)
   attachInterrupt(digitalPinToInterrupt(3), btPushed, FALLING);
   Timer1.initialize(5000000);
   Timer1.attachInterrupt(tickTock);
-	wdt_enable(WDTO_8S);
-	wdt_reset();
+  wdt_enable(WDTO_8S);
+  wdt_reset();
   for (;;) {
-   	if (tick) {
+    if (tick) {
       board -> update();
-			wdt_reset();
+      wdt_reset();
       tick = TOCK;
-   	}
+    }
     if (pushed) {
       board -> updatePush();
       pushed = IS_RELEASED;
